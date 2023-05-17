@@ -8,8 +8,8 @@ namespace Sample
 {
     public class Gomoku
     {
-        private const int BOARD_SIZEX = 8; // 盤面のサイズ
-        private const int BOARD_SIZEY = 8; // 盤面のサイズ
+        private const int BOARD_SIZEX = 10; // 盤面のサイズ
+        private const int BOARD_SIZEY = 12; // 盤面のサイズ
         private const string endKeyWord = "end"; // 盤面のサイズ
 
         public enum Stone
@@ -21,35 +21,36 @@ namespace Sample
         };
 
         private static readonly Stone[,] board = new Stone[BOARD_SIZEX, BOARD_SIZEY]; // 盤面を表す二次元配列
-        
+
         /*五目をスタートする関数*/
-        public void StartGameGomoku()
+        public void Start()
         {
             InitBoard();
             PrintBorad();
             PrintResult();
             CountBoardStone();
         }
-
+        
         /*盤面を表示する関数*/
         private void PrintBorad()
         {
             //盤面の列の数に応じて番号を表示
+            Console.Write("   ");
             for (int i = 0; i < BOARD_SIZEX; i++)
             {
-                Console.Write("  " + (i + 1));
+                Console.Write($"{(i + 1),3}");
             }
             Console.WriteLine();
 
             //盤面の行の数に応じて盤面を描画
-            for (int row = 0; row < BOARD_SIZEX; row++)
+            for (int row = 0; row < BOARD_SIZEY; row++)
             {
                 //番号を表示
-                Console.Write(row + 1 + " ");
+                Console.Write($"{row + 1,3}" + " ");
                 //ボード配列の値に応じて碁を配置   0:〇  1:●
-                for (int col = 0; col < BOARD_SIZEY; col++)
+                for (int col = 0; col < BOARD_SIZEX; col++)
                 {
-                    Console.Write(board[row, col] == Stone.BLACK ? "〇 " : "● ");
+                    Console.Write(board[col, row] == Stone.BLACK ? "〇 " : "● ");
                 }
                 Console.WriteLine();
             }
@@ -102,7 +103,7 @@ namespace Sample
         {
             while (true)
             {
-                Console.WriteLine("横と縦のマス目を指定しやがれ！(例:1,3) {0}:終了",endKeyWord);
+                Console.WriteLine("横と縦のマス目を指定しやがれ！(例:1,3) {0}:終了", endKeyWord);
 
                 //nullを許容する変数
                 string? input = Console.ReadLine();
@@ -129,6 +130,15 @@ namespace Sample
                 }
             }
             Console.WriteLine("これで終わりだ！！！");
+        }
+    }
+    internal class MegutanProject
+    {
+        static void Main(string[] args)
+        {
+
+            Gomoku gomoku = new();
+            gomoku.Start();
         }
     }
 
